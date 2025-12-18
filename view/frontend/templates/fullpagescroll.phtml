@@ -1,0 +1,27 @@
+<?php
+/**
+ * @var WeltPixel\FullPageScroll\Block\FullPageScroll $_blocks
+ */
+$_blocks      = $block->cmsBlockFiltered();
+$_countBlocks = count( $_blocks );
+?>
+<?php if($block->enable() && $_countBlocks > 0): ?>
+	<div id="fullpage">
+		<?php
+		foreach ( $_blocks as $_block ) {
+            /* @noEscape  */ echo $_block;
+		}
+		?>
+		<div
+			class="section fp-auto-height"
+			for="footer"
+			id="section<?= (int)$_countBlocks; ?>"></div>
+	</div>
+	<script type="text/javascript">
+		require(['jquery', 'fullpagescroll'],
+			function ($, FullPageScroll) {
+				FullPageScroll.action(<?= (int)$_countBlocks; ?>);
+				jQuery(window).trigger('resize');
+			});
+	</script>
+<?php endif; ?>
